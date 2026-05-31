@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
-API_KEY = os.getenv("OPENROUTER_API_KEY")
+API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 
 class Request(BaseModel):
