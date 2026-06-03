@@ -339,7 +339,23 @@ samples = [
     "Changing UI colours"
 ]
 
-st.markdown("### 📝 Enterprise Change Request")
+st.markdown("### 📝 Enterprise Change Analysis")
+
+product_url = st.text_input(
+    "🌐 Product / Company Website URL",
+    placeholder="https://www.company.com"
+)
+
+product_details = st.text_area(
+    "📋 Additional Product Details (Optional)",
+    placeholder="""
+Frontend: React
+Backend: Node.js
+Database: MySQL
+Modules: Payment, Inventory, Notifications
+""",
+    height=120
+)
 
 choice = st.selectbox(
     "Choose Sample Change Request",
@@ -347,7 +363,7 @@ choice = st.selectbox(
 )
 
 change = st.text_area(
-    "Enter Change Request",
+    "🔄 Proposed Change",
     value="" if choice == "Custom" else choice,
     height=150
 )
@@ -358,10 +374,18 @@ if st.button(
     use_container_width=True
 ):
 
+    if not product_url.strip():
+
+        st.warning(
+            "Please enter a Product URL."
+        )
+
+        st.stop()
+
     if not change.strip():
 
         st.warning(
-            "Please enter a change request."
+            "Please enter a proposed change."
         )
 
         st.stop()
@@ -383,8 +407,23 @@ if st.button(
     Previous Similar Changes:
     {context_block}
 
-    Current Change Request:
+    Product Website:
+    {product_url}
+
+    Additional Product Details:
+    {product_details}
+
+    Proposed Change:
     {change}
+
+    Analyze:
+
+    1. Business Impact
+    2. Technical Impact
+    3. Risks
+    4. Dependency Analysis
+    5. Training Requirements
+    6. Executive Recommendation
     """
 
     status.info("📊 Impact Agent Running...")
@@ -458,6 +497,7 @@ if st.button(
     </h3>
 
     <p style="color:#111827;">
+    <strong>Product:</strong> {product_url}<br>
     <strong>Risk Level:</strong> {risk_data["risk_level"]}<br>
 
     <strong>Risk Score:</strong> {risk_data["risk_score"]}/100<br>
